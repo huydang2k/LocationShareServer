@@ -16,9 +16,9 @@ class Hello(Resource):
         return {"data":"hello"}
 api.add_resource(Hello,"/h")
 if __name__ == "__main__":
-    #app.run(debug=True)
+    app.run(debug=True)
 
-    print(loc)
+
 
 
 
