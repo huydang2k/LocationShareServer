@@ -1,6 +1,5 @@
 # LocationShareServer
-Ae clone về
-Mỗi khi code:
+Mỗi khi ae bắt đầu code:
   - Chuyển sang nhánh dev: git checkout dev
   - Pull code mới nhất: git pull
   - Chuyển sang nhánh mình, ví dụ: git checkout huy
