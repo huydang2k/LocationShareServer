@@ -29,9 +29,9 @@ CREATE TABLE `Key` (
   PRIMARY KEY (`userId1`,`userId2`),
   UNIQUE KEY `commonKey_UNIQUE` (`commonKey`),
   KEY `fk_user_key_1_idx` (`userId1`),
-  KEY `fk_user_key_2_idx` (`userId2`),
-  CONSTRAINT `fk_user_key_1` FOREIGN KEY (`userId1`) REFERENCES `User` (`userId`),
-  CONSTRAINT `fk_user_key_2` FOREIGN KEY (`userId2`) REFERENCES `User` (`userId`)
+  KEY `fk_key_user2_idx` (`userId2`),
+  CONSTRAINT `fk_key_user1` FOREIGN KEY (`userId1`) REFERENCES `User` (`userId`),
+  CONSTRAINT `fk_key_user2` FOREIGN KEY (`userId2`) REFERENCES `User` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,16 +53,16 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `User` (
-  `userId` int NOT NULL,
+  `userId` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
-  `fullName` varchar(45) NOT NULL,
-  `avatarUrl` varchar(45) DEFAULT NULL,
+  `fullName` varchar(100) NOT NULL,
+  `avatarUrl` varchar(100) DEFAULT NULL,
   `gender` int NOT NULL,
   `age` int DEFAULT NULL,
   `currentCity` varchar(45) NOT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-20 23:57:58
+-- Dump completed on 2021-06-21 23:46:11
