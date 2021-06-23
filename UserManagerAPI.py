@@ -5,7 +5,8 @@ from config import db
 #Output: user hoặc none nếu username và password sai
 def login_api(username, hashed_password):
     user = User.query.filter(User.username == username, User.password == hashed_password).first()
-    return user
+    a = {"fullName": user.fullName}
+    return a
 
 def signup_api(username, password, fullName, avatarUrl, gender, age, currentCity):
     existing_user = User.query.filter(User.username == username).first()
