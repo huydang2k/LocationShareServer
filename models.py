@@ -30,4 +30,4 @@ class User(db.Model):
 #         self.commonKey = key
 
 
-db.create_all()
+# db.create_all

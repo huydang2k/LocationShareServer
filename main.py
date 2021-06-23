@@ -10,6 +10,9 @@ from flask_sqlalchemy import SQLAlchemy
 import LocateShareAPI
 import UserManagerAPI
 from config import db
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
 

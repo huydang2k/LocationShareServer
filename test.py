@@ -1,4 +1,7 @@
 from models import User
+import pymysql
+
+# pymysql.install_as_MySQLdb()
 
 people = User.query.all()
 
