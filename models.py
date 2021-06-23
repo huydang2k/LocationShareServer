@@ -1,5 +1,6 @@
 from config import db
 
+
 # Models
 class User(db.Model):
     id = db.Column('userId', db.Integer, primary_key=True, autoincrement=True)

@@ -1,6 +1,4 @@
-from models import User
-# from models import Key
-from config import db
+from main import User
 
 
 def search_api(userid, cityId):
