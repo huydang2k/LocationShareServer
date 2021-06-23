@@ -2,20 +2,22 @@ from config import db
 
 # Models
 class User(db.Model):
-    id = db.Column('userId', db.Integer, primary_key=True)
+    id = db.Column('userId', db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(45))
     password = db.Column(db.String(45))
     fullName = db.Column(db.String(100))
     avatarUrl = db.Column(db.String(100))
     gender = db.Column(db.Integer)
+    age = db.Column(db.Integer)
     currentCity = db.Column(db.String(45))
 
-    def __init__(self, username, password, fullName, avatarUrl, gender, currentCity):
+    def __init__(self, username, password, fullName, avatarUrl, gender, age, currentCity):
         self.username = username,
         self.password = password,
         self.fullName = fullName,
         self.avatarUrl = avatarUrl,
         self.gender = gender,
+        self.age = age,
         self.currentCity = currentCity
 
 
