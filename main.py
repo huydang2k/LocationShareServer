@@ -29,9 +29,16 @@ def login(username, password):
     assert password == request.view_args['password']
     return UserManagerAPI.login_api(username, password)
 
-@app.route('/signUp', methods=['POST'])
-def signUp():
-    return
+@app.route('/signUp/<username>/<password>/<fullName>/<avatarUrl>/<gender>/<age>/<currentCity>', methods=['GET'])
+def signUp(username, password, fullName, avatarUrl, gender, age, currentCity):
+    assert username == request.view_args['username']
+    assert password == request.view_args['password']
+    assert fullName == request.view_args['fullName']
+    assert avatarUrl == request.view_args['avatarUrl']
+    assert gender == request.view_args['gender']
+    assert age == request.view_args['age']
+    assert currentCity == request.view_args['currentCity']
+    return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, age, currentCity)
 
 if __name__ == "__main__":
     app.run(debug=True)
