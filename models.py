@@ -8,16 +8,16 @@ class User(db.Model):
     fullName = db.Column(db.String(100))
     avatarUrl = db.Column(db.String(100))
     gender = db.Column(db.Integer)
-    age = db.Column(db.Integer)
+    birthYear = db.Column(db.Integer)
     currentCity = db.Column(db.String(45))
 
-    def __init__(self, username, password, fullName, avatarUrl, gender, age, currentCity):
+    def __init__(self, username, password, fullName, avatarUrl, gender, birthYear, currentCity):
         self.username = username,
         self.password = password,
         self.fullName = fullName,
         self.avatarUrl = avatarUrl,
         self.gender = gender,
-        self.age = age,
+        self.birthYear = birthYear,
         self.currentCity = currentCity
 
 

@@ -23,10 +23,11 @@ def update_locate(userid, cityId):
     assert cityId == request.view_args['cityId']
     return LocateShareAPI.update_locate_api(userid, cityId)
 
-@app.route('/login/<username>/<password>', methods=['GET'])
-def login(username, password):
-    assert username == request.view_args['username']
-    assert password == request.view_args['password']
+@app.route('/login', methods=['POST'])
+def login():
+    assert username == request.json['username']
+    print(username)
+    assert password == request.json['password']
     return UserManagerAPI.login_api(username, password)
 
 @app.route('/signUp/<username>/<password>/<fullName>/<avatarUrl>/<gender>/<age>/<currentCity>', methods=['GET'])
