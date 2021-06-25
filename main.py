@@ -5,13 +5,14 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from flask import request
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
 from config import app, db
 import LocateShareAPI
 import UserManagerAPI
-import pymysql
 
-pymysql.install_as_MySQLdb()
+# import pymysql
+#
+# pymysql.install_as_MySQLdb()
 
 
 @app.route('/search/<userid>/<cityId>', methods=['GET'])
@@ -27,10 +28,12 @@ def update_locate(userid, cityId):
     assert cityId == request.view_args['cityId']
     return LocateShareAPI.update_locate_api(userid, cityId)
 
+
 @app.route('/login', methods=['POST'])
 def login():
     j = request.get_json(force=True)
     return UserManagerAPI.login_api(j['username'], j['password'])
+
 
 @app.route('/signUp', methods=['POST'])
 def signUp():
@@ -43,6 +46,7 @@ def signUp():
     birthYear = j['birthYear']
     currentCity = j['currentCity']
     return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,10 +1,12 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+import mysql.connector
 
 app = Flask(__name__)
 
-# Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1o0n720@@localhost/db_share_location'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="123456789",
+    database="db_share_location"
+)
 
-db = SQLAlchemy(app)

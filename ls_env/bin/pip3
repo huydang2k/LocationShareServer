@@ -1,4 +1,4 @@
-#!/Users/sonmt/20202/ATTT/ShareLocation/LocationShareServer/ls_env/bin/python
+#!/Users/sonmt/20202/ATTT/LocationShare/LocationShareServer/ls_env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,43 +1,57 @@
-from models import db, User
-import responses
+from config import db
 from datetime import date
 
-today = date.today()
-yearNow = today.year
+cursor = db.cursor()
 
 
 def login_api(username, hashed_password):
-    user = User.query.filter(User.username == username, User.password == hashed_password).first()
+    sql = "SELECT * FROM User WHERE username = %s AND password = %s"
+    params = (username, hashed_password)
+    cursor.execute(sql, params)
+    user = cursor.fetchone()
     if user is None:
         return {"msg": "fail"}
-    a = {"msg": "true", "fullName": user.fullName, "avatarUrl": user.avatarUrl, "gender": user.gender,
-         "age": yearNow - user.birthYear, "currentCity": user.currentCity, 'userID': user.id}
-    return a
+    today = date.today()
+    yearNow = today.year
+    return {"msg": "true",
+            "userId": user[0],
+            "username": user[1],
+            "password": user[2],
+            "fullName": user[3],
+            "avatarUrl": user[4],
+            "gender": user[5],
+            "age": yearNow - user[6],
+            "currentCity": user[7]}
 
 
 def signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity):
-    if username is None:
+    if username is None or password is None or \
+            fullName is None or gender is None or \
+            currentCity is None:
         return {"msg": "fail"}
-    if password is None:
-        return {"msg": "fail"}
-    if fullName is None:
-        return {"msg": "fail"}
-    if gender is None:
-        return {"msg": "fail"}
-    if currentCity is None:
-        return {"msg": "fail"}
-    existing_user = User.query.filter(User.username == username).first()
+
+    sql = "SELECT * FROM User WHERE username = %s"
+    params = (username,)
+    cursor.execute(sql, params)
+    existing_user = cursor.fetchone()
     if existing_user is None:
-        user = User(username, password, fullName, avatarUrl, gender, birthYear, currentCity)
-        db.session.add(user)
-        db.session.commit()
-        userReturn = User.query.filter(User.username == username).first()
-        if userReturn is not None:
-            a = {"msg": "true", "fullName": userReturn.fullName, "avatarUrl": userReturn.avatarUrl,
-                 "gender": userReturn.gender, "age": yearNow - userReturn.birthYear,
-                 "currentCity": userReturn.currentCity, "userID": userReturn.id}
-            return a
-        else:
+        sql = "INSERT INTO User(username, password, fullName, avatarUrl, gender, birthYear, currentCity) " \
+              "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        params = (username, password, fullName, avatarUrl, gender, birthYear, currentCity)
+        try:
+            cursor.execute(sql, params)
+            db.commit()
+            userId = cursor.getlastrowid()
+            return {"msg": "success",
+                    "userId": userId,
+                    "username": username,
+                    "password": password,
+                    "fullName": fullName,
+                    "avatarUrl": avatarUrl,
+                    "gender": gender,
+                    "age": yearNow - birthYear,
+                    "currentCity": currentCity}
+        except ex:
             return {"msg": "fail"}
     else:
         return {"msg": "fail"}
