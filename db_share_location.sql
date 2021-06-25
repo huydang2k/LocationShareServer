@@ -58,10 +58,10 @@ CREATE TABLE `user` (
   `fullName` varchar(45) NOT NULL,
   `avatarUrl` varchar(45) DEFAULT NULL,
   `gender` int NOT NULL,
-  `age` int DEFAULT NULL,
+  `birthYear` int DEFAULT NULL,
   `currentCity` varchar(45) NOT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'sonmt','123456','Mai Truong Son',NULL,0,21,'Haiphong'),(2,'huydq','123456','Dang Quang Huy',NULL,0,21,'Hungyen'),(3,'duongdt','123456','Dao Tung Duong',NULL,0,21,'Haiduong'),(4,'bot1','123456','Bot 1',NULL,1,19,'Haiphong'),(5,'bot2','123456','Bot 2',NULL,1,18,'Hungyen'),(6,'bot3','123456','Bot 3',NULL,0,32,'Haiduong'),(7,'bot4','123456','Bot 4',NULL,2,20,'Ha Noi');
+INSERT INTO `user` VALUES (1,'sonmt','123456','Mai Truong Son',NULL,0,2000,'Haiphong'),(2,'huydq','123456','Dang Quang Huy',NULL,0,1999,'Hungyen'),(3,'duongdt','123456','Dao Tung Duong',NULL,0,1999,'Haiduong'),(4,'bot1','123456','Bot 1',NULL,1,2001,'Haiphong'),(5,'bot2','123456','Bot 2',NULL,1,2002,'Hungyen'),(6,'bot3','123456','Bot 3',NULL,0,1990,'Haiduong'),(7,'bot4','123456','Bot 4',NULL,2,2000,'Ha Noi'),(15,'bot5','123456','Bot 5',NULL,1,1999,'Haiduong');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +83,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-23  1:18:35
+-- Dump completed on 2021-06-25  9:25:40

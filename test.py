@@ -1,18 +1,8 @@
-from models import User
-import pymysql
+import requests
 
-# pymysql.install_as_MySQLdb()
-
-import UserManagerAPI
-
-
-people = User.query.all()
-
-for person in people:
-    print(person.fullName)
-
-a = UserManagerAPI
-print(a.login_api("duongdt", "123456"))
-print(a.signup_api("bot7", "123456", "Bot 7", None, 1, 22, "Hanoi"))
-
-
+data1 = {'username': "duongdt", 'password': "123456"}
+response1 = requests.post('http://127.0.0.1:5000/login', json=data1).json()
+print(response1)
+data2 = {'username': None, 'password': '123456', 'birthYear': 1999, 'avatarUrl': None, 'currentCity': 'Haiduong', 'gender': '1', 'fullName': None}
+response2 = requests.post('http://127.0.0.1:5000/signUp', json=data2).json()
+print(response2)
