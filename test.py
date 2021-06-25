@@ -1,5 +1,8 @@
 import requests
 
-data = {'username': "duongdt", 'password': "123456"}
-response = (requests.post('http://127.0.0.1:5000/login', json=data)).json()
-print(response)
+data1 = {'username': "duongdt", 'password': "123456"}
+response1 = requests.post('http://127.0.0.1:5000/login', json=data1).json()
+print(response1)
+data2 = {'username': None, 'password': '123456', 'birthYear': 1999, 'avatarUrl': None, 'currentCity': 'Haiduong', 'gender': '1', 'fullName': None}
+response2 = requests.post('http://127.0.0.1:5000/signUp', json=data2).json()
+print(response2)

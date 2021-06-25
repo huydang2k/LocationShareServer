@@ -25,21 +25,20 @@ def update_locate(userid, cityId):
 
 @app.route('/login', methods=['POST'])
 def login():
-    assert username == request.json['username']
-    print(username)
-    assert password == request.json['password']
-    return UserManagerAPI.login_api(username, password)
+    j = request.get_json(force=True)
+    return UserManagerAPI.login_api(j['username'], j['password'])
 
-@app.route('/signUp/<username>/<password>/<fullName>/<avatarUrl>/<gender>/<age>/<currentCity>', methods=['GET'])
-def signUp(username, password, fullName, avatarUrl, gender, age, currentCity):
-    assert username == request.view_args['username']
-    assert password == request.view_args['password']
-    assert fullName == request.view_args['fullName']
-    assert avatarUrl == request.view_args['avatarUrl']
-    assert gender == request.view_args['gender']
-    assert age == request.view_args['age']
-    assert currentCity == request.view_args['currentCity']
-    return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, age, currentCity)
+@app.route('/signUp', methods=['POST'])
+def signUp():
+    j = request.get_json(force=True)
+    username = j['username']
+    password = j['password']
+    fullName = j['fullName']
+    avatarUrl = j['avatarUrl']
+    gender = j['gender']
+    birthYear = j['birthYear']
+    currentCity = j['currentCity']
+    return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity)
 
 if __name__ == "__main__":
     app.run(debug=True)
