@@ -5,28 +5,25 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from flask import request
-# from flask_sqlalchemy import SQLAlchemy
 from config import app, db
 import LocateShareAPI
 import UserManagerAPI
 
-# import pymysql
-#
-# pymysql.install_as_MySQLdb()
+
+@app.route('/search', methods=['GET'])
+def search():
+    j = request.get_json(force=True)
+    userId = j['userId']
+    currentCity = j['currentCity']
+    return LocateShareAPI.search_api(userId, currentCity)
 
 
-@app.route('/search/<userid>/<cityId>', methods=['GET'])
-def search(userid, cityId):
-    assert userid == request.view_args['userid']
-    assert cityId == request.view_args['cityId']
-    return LocateShareAPI.search_api(userid, cityId)
-
-
-@app.route('/update_locate/<userid>/<cityId>', methods=['POST'])
-def update_locate(userid, cityId):
-    assert userid == request.view_args['userid']
-    assert cityId == request.view_args['cityId']
-    return LocateShareAPI.update_locate_api(userid, cityId)
+@app.route('/update_locate', methods=['POST'])
+def update_locate():
+    j = request.get_json(force=True)
+    userId = j['userId']
+    currentCity = j['currentCity']
+    return LocateShareAPI.update_locate_api(userId, currentCity)
 
 
 @app.route('/login', methods=['POST'])

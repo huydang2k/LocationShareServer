@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.24, for macos11 (x86_64)
 --
 -- Host: localhost    Database: db_share_location
 -- ------------------------------------------------------
--- Server version	8.0.25
+-- Server version	8.0.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `key`
+-- Table structure for table `CommonKey`
 --
 
-DROP TABLE IF EXISTS `key`;
+DROP TABLE IF EXISTS `CommonKey`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `key` (
+CREATE TABLE `CommonKey` (
   `userId1` int NOT NULL,
   `userId2` int NOT NULL,
   `commonKey` varchar(12) NOT NULL,
@@ -35,13 +35,13 @@ CREATE TABLE `key` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `key`
+-- Dumping data for table `CommonKey`
 --
 
-LOCK TABLES `key` WRITE;
-/*!40000 ALTER TABLE `key` DISABLE KEYS */;
-INSERT INTO `key` VALUES (5,7,'1039112504'),(4,5,'1082382449'),(2,7,'1241932902'),(4,7,'1486773586'),(3,6,'1629529122'),(3,4,'1754518522'),(1,3,'1773916804'),(2,4,'1936376279'),(4,6,'1950397776'),(1,7,'2050623727'),(1,5,'2399362803'),(3,5,'2490631576'),(2,3,'2978157398'),(2,5,'3074149083'),(2,6,'3094724058'),(1,4,'3255482402'),(3,7,'3470120809'),(1,2,'3501381670'),(1,6,'3631806077'),(6,7,'3763443083'),(5,6,'3936345389');
-/*!40000 ALTER TABLE `key` ENABLE KEYS */;
+LOCK TABLES `CommonKey` WRITE;
+/*!40000 ALTER TABLE `CommonKey` DISABLE KEYS */;
+INSERT INTO `CommonKey` VALUES (5,7,'1039112504'),(4,5,'1082382449'),(2,7,'1241932902'),(4,7,'1486773586'),(3,6,'1629529122'),(3,4,'1754518522'),(1,3,'1773916804'),(2,4,'1936376279'),(4,6,'1950397776'),(1,7,'2050623727'),(1,5,'2399362803'),(3,5,'2490631576'),(2,3,'2978157398'),(2,5,'3074149083'),(2,6,'3094724058'),(1,4,'3255482402'),(3,7,'3470120809'),(1,2,'3501381670'),(1,6,'3631806077'),(6,7,'3763443083'),(5,6,'3936345389');
+/*!40000 ALTER TABLE `CommonKey` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -60,8 +60,10 @@ CREATE TABLE `user` (
   `gender` int NOT NULL,
   `birthYear` int DEFAULT NULL,
   `currentCity` varchar(45) NOT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `counter` int NOT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +72,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'sonmt','123456','Mai Truong Son',NULL,0,2000,'Haiphong'),(2,'huydq','123456','Dang Quang Huy',NULL,0,1999,'Hungyen'),(3,'duongdt','123456','Dao Tung Duong',NULL,0,1999,'Haiduong'),(4,'bot1','123456','Bot 1',NULL,1,2001,'Haiphong'),(5,'bot2','123456','Bot 2',NULL,1,2002,'Hungyen'),(6,'bot3','123456','Bot 3',NULL,0,1990,'Haiduong'),(7,'bot4','123456','Bot 4',NULL,2,2000,'Ha Noi'),(15,'bot5','123456','Bot 5',NULL,1,1999,'Haiduong');
+INSERT INTO `user` VALUES (1,'sonmt','123456','Mai Truong Son',NULL,0,2000,'1235',0),(2,'huydq','123456','Dang Quang Huy',NULL,0,1999,'4433',0),(3,'duongdt','123456','Dao Tung Duong',NULL,0,1999,'4431',0),(4,'bot1','123456','Bot 1',NULL,1,2001,'1235',0),(5,'bot2','123456','Bot 2',NULL,1,2002,'4433',0),(6,'bot3','123456','Bot 3',NULL,0,1990,'4431',0),(7,'bot4','123456','Bot 4',NULL,2,2000,'5689',0),(15,'bot5','123456','Bot 5',NULL,1,1999,'4431',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -83,4 +85,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-25  9:25:40
+-- Dump completed on 2021-06-26 17:15:19
