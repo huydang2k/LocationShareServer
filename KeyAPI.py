@@ -1,4 +1,4 @@
-from Ctypto.Cipher import AES
+from Crypto.Cipher import AES
 import random
 
 
@@ -26,5 +26,5 @@ def add_key(userId1, userId2):
 
 def generate_session_key(counter, common_key):
     common_key = int(common_key)
-
+    # cipher = AES(counter, common_key)
     return k_0, k_1

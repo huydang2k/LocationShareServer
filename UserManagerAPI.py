@@ -9,10 +9,10 @@ def login_api(username, hashed_password):
     params = (username, hashed_password)
     cursor.execute(sql, params)
     user = cursor.fetchone()
-    if user is None:
-        return {"msg": "fail"}
     today = date.today()
     yearNow = today.year
+    if user is None:
+        return {"msg": "fail"}
     return {"msg": "true",
             "userId": user[0],
             "username": user[1],
@@ -29,7 +29,6 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
             fullName is None or gender is None or \
             currentCity is None:
         return {"msg": "fail"}
-
     sql = "SELECT * FROM User WHERE username = %s"
     params = (username,)
     cursor.execute(sql, params)
@@ -42,6 +41,8 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
             cursor.execute(sql, params)
             db.commit()
             userId = cursor.getlastrowid()
+            today = date.today()
+            yearNow = today.year
             return {"msg": "success",
                     "userId": userId,
                     "username": username,
