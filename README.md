@@ -19,4 +19,7 @@ Cấu trúc mã nguồn:
     - db_share_location.sql: file .sql database:
         mỗi khi pull về, import vào local MySQL
         sau khi code, không export phiên bản hiện tại trong MySQL (tránh conflict với phiên bản database trên máy local của thành viên khác)
-
+Ingore:
+    venv
+    .vscode
+    config.py
