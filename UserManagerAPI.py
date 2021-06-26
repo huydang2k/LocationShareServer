@@ -35,8 +35,8 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
     cursor.execute(sql, params)
     existing_user = cursor.fetchone()
     if existing_user is None:
-        sql = "INSERT INTO User(username, password, fullName, avatarUrl, gender, birthYear, currentCity) " \
-              "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO User(username, password, fullName, avatarUrl, gender, birthYear, currentCity, counter) " \
+              "VALUES (%s, %s, %s, %s, %s, %s, %s, 0)"
         params = (username, password, fullName, avatarUrl, gender, birthYear, currentCity)
         try:
             cursor.execute(sql, params)
