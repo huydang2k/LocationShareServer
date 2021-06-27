@@ -8,8 +8,8 @@ from flask import request
 from config import app, db
 import LocateShareAPI
 import UserManagerAPI
-
-
+from flask import url_for
+import os 
 @app.route('/search', methods=['GET'])
 def search():
     j = request.get_json(force=True)
@@ -47,3 +47,8 @@ def signUp():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
+    arr = os.listdir('./static')
+    print(arr)
+    for i in arr:
+        url_for("static", filename="static/" + i)
