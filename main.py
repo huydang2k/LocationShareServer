@@ -9,7 +9,9 @@ from config import app, db
 import LocateShareAPI
 import UserManagerAPI
 from flask import url_for
-import os 
+import os
+
+
 @app.route('/search', methods=['GET'])
 def search():
     j = request.get_json(force=True)
@@ -32,6 +34,13 @@ def login():
     return UserManagerAPI.login_api(j['username'], j['password'])
 
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    j = request.get_json(force=True)
+    logout_user_id = j['userId']
+    return UserManagerAPI.logout_api(logout_user_id)
+
+
 @app.route('/signUp', methods=['POST'])
 def signUp():
     j = request.get_json(force=True)
@@ -44,7 +53,8 @@ def signUp():
     currentCity = j['currentCity']
     return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity)
 
-@app.route('/upload/<userId>', methods = ['GET','POST'])
+
+@app.route('/upload/<userId>', methods=['GET', 'POST'])
 def upload_file(userId):
     # handle request and store img here
     assert userId == request.view_args['userId']
@@ -52,13 +62,14 @@ def upload_file(userId):
     userId = str(userId)
     uploaded_file = request.files['file']
     if uploaded_file.filename != '':
-        uploaded_file.save('static/'+userId + '_' + uploaded_file.filename)
-    res = LocateShareAPI.change_ava(userId + '_' + uploaded_file.filename,int(userId))
+        uploaded_file.save('static/' + userId + '_' + uploaded_file.filename)
+    res = LocateShareAPI.change_ava(userId + '_' + uploaded_file.filename, int(userId))
     res['data'] = userId + '_' + uploaded_file.filename
     return res
+
+
 if __name__ == "__main__":
     app.run(debug=True)
-    
     arr = os.listdir('./static')
     print(arr)
     for i in arr:

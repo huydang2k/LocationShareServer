@@ -4,6 +4,8 @@ from KeyAPI import add_key
 
 cursor = db.cursor()
 
+online_users = {0}
+
 
 def login_api(username, hashed_password):
     sql = "SELECT * FROM User WHERE username = %s AND password = %s"
@@ -24,7 +26,17 @@ def login_api(username, hashed_password):
         "age": yearNow - user[6],
         "currentCity": user[7]
     }
-    return {"msg": "true", "data": data}
+    if user[0] not in online_users:
+        online_users.add(user[0])
+    return {"msg": "success", "data": data}
+
+
+def logout_api(userId):
+    if userId in online_users:
+        online_users.remove(userId)
+        return {"msg": "success", "data": None}
+    else:
+        return {"msg": "fail", "data": None}
 
 
 def signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity):
@@ -61,7 +73,9 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
             cursor.execute(sql1, params1)
             users = cursor.fetchall()
             for u in users:
-                b = add_key(u[0], userId)
+                b = False
+                while not b:
+                    b = add_key(u[0], userId)
 
             return {"msg": "success", "data": data}
         except:
