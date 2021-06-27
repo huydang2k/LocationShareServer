@@ -44,7 +44,18 @@ def signUp():
     currentCity = j['currentCity']
     return UserManagerAPI.signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity)
 
-
+@app.route('/upload/<userId>', methods = ['GET','POST'])
+def upload_file(userId):
+    # handle request and store img here
+    assert userId == request.view_args['userId']
+    print(userId)
+    userId = str(userId)
+    uploaded_file = request.files['file']
+    if uploaded_file.filename != '':
+        uploaded_file.save('static/'+userId + '_' + uploaded_file.filename)
+    res = LocateShareAPI.change_ava(userId + '_' + uploaded_file.filename,int(userId))
+    res['data'] = userId + '_' + uploaded_file.filename
+    return res
 if __name__ == "__main__":
     app.run(debug=True)
     

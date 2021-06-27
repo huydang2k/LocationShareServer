@@ -5,7 +5,16 @@ from KeyAPI import generate_session_key
 from config import db
 
 cursor = db.cursor()
-
+def change_ava(avaUrl,userId):
+    print('a')
+    sql = "UPDATE User SET avatarUrl = %s WHERE userId = %s"
+    params = (avaUrl, userId)
+    try:
+        cursor.execute(sql, params)
+        db.commit()
+        return {"msg": "success", "data": None}
+    except:
+        return {"msg": "fail", "data": None}
 
 def search_api(userId, currentCity):
     update_locate_api(userId, currentCity)
