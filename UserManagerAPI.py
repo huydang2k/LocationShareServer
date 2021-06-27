@@ -13,19 +13,15 @@ def login_api(username, hashed_password):
     yearNow = today.year
     if user is None:
         return {"msg": "fail"}
-    return {
-            "msg": "true",
-            "data": {
-                "userId": user[0],
-                "username": user[1],
-                "password": user[2],
-                "fullName": user[3],
-                "avatarUrl": user[4],
-                "gender": user[5],
-                "age": yearNow - user[6],
-                "currentCity": user[7]
-                }
-            }
+    return {"msg": "true",
+            "userId": user[0],
+            "username": user[1],
+            "password": user[2],
+            "fullName": user[3],
+            "avatarUrl": user[4],
+            "gender": user[5],
+            "age": yearNow - user[6],
+            "currentCity": user[7]}
 
 
 def signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity):
@@ -47,20 +43,16 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
             userId = cursor.getlastrowid()
             today = date.today()
             yearNow = today.year
-            return {
-                    "msg": "success",
-                    "data": {
-                        "userId": userId,
-                        "username": username,
-                        "password": password,
-                        "fullName": fullName,
-                        "avatarUrl": avatarUrl,
-                        "gender": gender,
-                        "age": yearNow - birthYear,
-                        "currentCity": currentCity
-                        }
-                    }
-        except:
+            return {"msg": "success",
+                    "userId": userId,
+                    "username": username,
+                    "password": password,
+                    "fullName": fullName,
+                    "avatarUrl": avatarUrl,
+                    "gender": gender,
+                    "age": yearNow - birthYear,
+                    "currentCity": currentCity}
+        except ex:
             return {"msg": "fail"}
     else:
         return {"msg": "fail"}

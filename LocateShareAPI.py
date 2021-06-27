@@ -1,8 +1,24 @@
 from config import db
 import KeyAPI
 import random
-
+from Crypto.Cipher import DES3
 cursor = db.cursor()
+
+#Input: (int,int)
+#Output: tuple (int,int) 
+def gen_key(common_key:int,counter:int):
+    des3_1 = b'12345678'
+    des3_2 = b'abcdefgh'
+    common_key = common_key.to_bytes(8,'big')
+    key = bytearray()
+    key.extend(des3_1)
+    key.extend(des3_2)
+    key.extend(common_key)
+    
+    counter = counter.to_bytes(8,'big')
+    des3 = DES3.new(key,DES3.MODE_ECB)
+    des3_out = des3.encrypt(counter)
+    return (int.from_bytes(des3_out[0:4],'big'),int.from_bytes(des3_out[4:8],'big'))
 
 def search_api(userId, currentCity):
     update_locate_api(userId, currentCity)
@@ -13,7 +29,7 @@ def search_api(userId, currentCity):
         params = (userId, userId)
         cursor.execute(sql, params)
         results = cursor.fetchall()
-        data = []
+        data = [{"msg": "success"}]
         for u in results:
             # Update counter
             counter = u[-2]
@@ -41,10 +57,7 @@ def search_api(userId, currentCity):
                     "gender": u[5],
                     "avatarUrl": u[4]
                 })
-        return {
-                "msg": "fail",
-                "data": data
-                }
+        return data
     except:
         return {"msg": "fail"}
 
