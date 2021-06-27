@@ -1,5 +1,6 @@
 from config import db
 from datetime import date
+from KeyAPI import add_key
 
 cursor = db.cursor()
 
@@ -12,16 +13,18 @@ def login_api(username, hashed_password):
     today = date.today()
     yearNow = today.year
     if user is None:
-        return {"msg": "fail"}
-    return {"msg": "true",
-            "userId": user[0],
-            "username": user[1],
-            "password": user[2],
-            "fullName": user[3],
-            "avatarUrl": user[4],
-            "gender": user[5],
-            "age": yearNow - user[6],
-            "currentCity": user[7]}
+        return {"msg": "fail", "data": locate}
+    data = {
+        "userId": user[0],
+        "username": user[1],
+        "password": user[2],
+        "fullName": user[3],
+        "avatarUrl": user[4],
+        "gender": user[5],
+        "age": yearNow - user[6],
+        "currentCity": user[7]
+    }
+    return {"msg": "true", "data": data}
 
 
 def signup_api(username, password, fullName, avatarUrl, gender, birthYear, currentCity):
@@ -43,16 +46,25 @@ def signup_api(username, password, fullName, avatarUrl, gender, birthYear, curre
             userId = cursor.getlastrowid()
             today = date.today()
             yearNow = today.year
-            return {"msg": "success",
-                    "userId": userId,
-                    "username": username,
-                    "password": password,
-                    "fullName": fullName,
-                    "avatarUrl": avatarUrl,
-                    "gender": gender,
-                    "age": yearNow - birthYear,
-                    "currentCity": currentCity}
-        except ex:
-            return {"msg": "fail"}
+            data = {
+                "userId": userId,
+                "username": username,
+                "password": password,
+                "fullName": fullName,
+                "avatarUrl": avatarUrl,
+                "gender": gender,
+                "age": yearNow - birthYear,
+                "currentCity": currentCity
+            }
+            sql1 = "SELECT * FROM User WHERE UserId != %s"
+            params1 = (userId, )
+            cursor.execute(sql1, params1)
+            users = cursor.fetchall()
+            for u in users:
+                b = add_key(u[0], userId)
+
+            return {"msg": "success", "data": data}
+        except:
+            return {"msg": "fail", "data": None}
     else:
-        return {"msg": "fail"}
+        return {"msg": "fail", "data": None}
