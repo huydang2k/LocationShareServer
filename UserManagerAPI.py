@@ -13,7 +13,7 @@ def login_api(username, hashed_password):
     today = date.today()
     yearNow = today.year
     if user is None:
-        return {"msg": "fail", "data": locate}
+        return {"msg": "fail", "data": 'fail'}
     data = {
         "userId": user[0],
         "username": user[1],
